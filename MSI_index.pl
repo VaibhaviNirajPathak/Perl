@@ -35,7 +35,7 @@ foreach $f_line (@list)
 	#$outfile2=~s/\r//g;$outfile4=~s/\r//g;$outfile6=~s/\r//g;$outfile7=~s/\r//g;
 
 	open(OUTFILE1,">$dirout/$outfile1") or die "cant open outfile1\n";
-	#open(OUTFILE2,">$dirout/$outfile2") or die "cant open outfile2\n";
+	
 	open(OUTFILE3,">$dirout/$outfile3") or die "cant open outfile3\n";
 	#open(OUTFILE4,">$dirout/$outfile4") or die "cant open outfile4\n";
 	open(OUTFILE5,">$dirout/$outfile5") or die "cant open outfile5\n";
