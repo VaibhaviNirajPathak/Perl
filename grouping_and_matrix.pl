@@ -56,7 +56,14 @@ foreach my $line (@file)
 my @unique_QTL = grep { !$seen{$_}++} @QTL;
 my @unique_chr = grep { !$seen{$_}++} @CHR;
 my $LINE = join ("\t\t", @unique_QTL);
-print OUTFILE "Chromosome"."\t".$LINE."\n";
+print OUTFILE "\t"."\t".$LINE."\n";
+my $len_QTL=$#unique_QTL;
+print OUTFILE "Chromosome\t";
+for(my $i=0;$i<=$len_QTL;$i++)
+{
+	print OUTFILE "SNP_count\tGene_count\t";
+}
+print OUTFILE "\n";
 foreach my $C (@unique_chr)
 {
 	print OUTFILE "$C\t";
