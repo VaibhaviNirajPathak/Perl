@@ -1,3 +1,10 @@
+=if
+		AUTHOR : VAIBHAVI PATHAK
+		USAGE : perl STR_bioinfo.pl STR_input_filename
+		INPUT : ABI 3730XL DNA sequencer file, STR(Thermo fisher in this case) control file
+		REMARKS : This file takes ABI 3730 XL DNA sequencer input file,normalizes it with respect to 				  control, adjust the peak values into odd/even number and convert to GenALex and 			          Geneclass2 fromat.
+=cut
+
 #!/usr/bin/perl -w
 use strict;
 use Cwd qw(cwd);
@@ -5,7 +12,7 @@ use POSIX;
 
 my $num_args = $#ARGV + 1;
 if ($num_args != 1) {
-    print "\nUsage: STR_bioinfo.pl STR_input_file_name\n";
+    print "\nUsage: STR_bioinfo.pl STR_input_filename\n";
     exit;
 }
 my $input_filename=$ARGV[0];
@@ -17,13 +24,9 @@ my $final_hash={};
 my @Allele;
 my @filtered_file;
 my $Dir = $ENV{'PWD'};
-
 my $ctrl_sam_name = "08_CORP_35";
-
-
 my $infile4 = $Dir."/control.txt";
 open(FILE,$infile4) or die "cant open file\n";
-
 while(chomp(my $line4 =<FILE>))
 {
 	my($lo,$a1,$a2)  = split("\t",$line4);
@@ -31,10 +34,7 @@ while(chomp(my $line4 =<FILE>))
 	$ctrl{$lo}{'p2'} = $a2; 
 	push(@Allele,$lo);
 }
-
-
 open (FILE, $input_filename) || die "Cannot open the file2\n";
-
 chomp(my $line2 = <FILE>);
 while (chomp(my $line2 = <FILE>))
 {
@@ -45,7 +45,6 @@ while (chomp(my $line2 = <FILE>))
 		if($sam_name ne $ctrl_sam_name)
 		{ $SAM ->{$sam_name}++;}
 	}
-	
 	if($sam_name eq $ctrl_sam_name)
 	{
 	$data[3] =~ /(.*)\((.*)\)/g;
@@ -53,8 +52,6 @@ while (chomp(my $line2 = <FILE>))
 	my $p1 = $data[4];
 	my $p2 = $data[6];
 	if($p2 == " ") {$p2 = $p1};
-	#$p1 = sprintf("%.0f",$p1);
-	#$p2 = sprintf("%.0f",$p2);
 	if(($ctrl{$loc}{'p1'}) >= $p1)
 		{	
 			my $add = $ctrl{$loc}{'p1'} - $p1;
@@ -90,8 +87,6 @@ foreach my $line3 (@filtered_file)
 	my $peak1 = $data1[4];
 	my $peak2 = $data1[6];
 	if($peak2 == " ") {$peak2 = $peak1};
-	#$peak1 = sprintf("%.0f",$peak1);
-	#$peak2 = sprintf("%.0f",$peak2);
 	if(exists($subnorm{$l}{'p1'}))
 		{
 			$peak1 = $peak1 - $subnorm{$l}{'p1'};
@@ -119,7 +114,6 @@ foreach my $line3 (@filtered_file)
 		{	
 			if($peak1 % 2 == "0"){$peak1=$peak1+1;}
 			else{$peak1=$peak1;}
-			#print "$peak1\n";
 		}				
 		if(($ctrl{$l}{'p2'}) % 2 == "0")
 		{	
