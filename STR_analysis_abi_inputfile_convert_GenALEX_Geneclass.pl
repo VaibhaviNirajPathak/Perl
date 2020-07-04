@@ -2,7 +2,7 @@
 		AUTHOR : VAIBHAVI PATHAK
 		USAGE : perl STR_bioinfo.pl STR_input_filename
 		INPUT : ABI 3730XL DNA sequencer file, STR(Thermo fisher in this case) control file
-		REMARKS : This file takes ABI 3730 XL DNA sequencer input file,normalizes it with respect to 				  control, adjust the peak values into odd/even number and convert to GenALex and 			          Geneclass2 fromat.
+		REMARKS : This file takes ABI 3730 XL DNA sequencer input file,normalizes it with respect to control, adjust the peak values into odd/even number and convert to GenALex and Geneclass2 fromat.
 =cut
 
 #!/usr/bin/perl -w
